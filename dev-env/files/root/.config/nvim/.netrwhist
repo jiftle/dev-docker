@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/home/john/git/coding_net/grocery/dailylog/blog'
+let g:netrw_dirhist_7='/home/john/git/coding_net/grocery/dailylog'
+let g:netrw_dirhist_6='/root'
+let g:netrw_dirhist_5='/home/john/git/coding_net/grocery/dailylog'
+let g:netrw_dirhist_4='/root/.config/nvim/plugged'
+let g:netrw_dirhist_3='/home/john/git/coding_net/grocery/dailylog'
+let g:netrw_dirhist_2='/root/.vim/plugged/vim-snippets-jiftle'
+let g:netrw_dirhist_1='/root/.vim/plugged/vim-snippets-jiftle/UltiSnips'
+let g:netrw_dirhist_0='/home/john/git/coding_net/grocery/dailylog'
+let g:netrw_dirhist_9='/home/john/git/coding_net/grocery/dailylog/blog'

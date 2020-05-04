@@ -1,0 +1,4 @@
+
+# ------------- 默认工作目录 ----------------
+export MYHOME=/home/john \
+export M=$MYHOME \
