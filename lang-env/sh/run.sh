@@ -7,6 +7,7 @@
 # -----------------------------------------------------------------
 # set -e
 # 引用脚本
+cd ..
 . ./conf.conf
 
 # --------------- 定义变量 ------------------
@@ -21,9 +22,9 @@ echo "  |--> 开始启动Docker实例，[${DockerName}] ..."
 
 # ----------- 运行容器 ------------
 docker run -itd \
---name="${DockerKey}" \
+--name="${ContainerName}" \
 -v ${HOME}/.ssh:/root/.ssh \
--h "${DockerKey}" \
+-h "${ContainerName}" \
 --restart=always \
 ${DockerKey}:${DockerVer}
 
