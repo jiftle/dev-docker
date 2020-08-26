@@ -6,8 +6,9 @@
 # Description: 
 # -----------------------------------------------------------------
 set -e
+cd ..
 # ------------ 引用脚本 --------------
 . ./conf.conf
 
 # ------------ 业务脚本 --------------
-docker exec -it ${DockerKey} bash
+docker exec -it ${ContainerName} bash

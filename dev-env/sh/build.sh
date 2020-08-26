@@ -6,14 +6,16 @@
 # Description: 
 # -----------------------------------------------------------------
 set -e
+
+cd ..
 # ------------ 引用脚本 --------------
 . ./conf.conf
 
 # ------------------------------------
-echo "  |--> 删除历史镜像[${DockerKey}:${DockerVer}]"
-set +e
+# echo "  |--> 删除历史镜像[${DockerKey}:${DockerVer}]"
+# set +e
 # docker rmi -f ${DockerKey}:${DockerVer}
-set -e
+# set -e
 
 echo "  |--> 构建镜像[${DockerKey}:${DockerVer}]开始..."
 docker build -t ${DockerKey}:${DockerVer} .
