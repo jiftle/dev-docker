@@ -1,5 +1,5 @@
 # 基础镜像
-FROM build-env:0.1
+FROM jiftle/build-env:0.1
 
 # 维护者
 MAINTAINER jiftle "jiftle@163.com"

@@ -12,7 +12,7 @@ cd ..
 . ./conf.conf
 
 # ------------------------------------
-echo "  |--> 删除历史镜像[${DockerKey}:${DockerVer}]"
+# echo "  |--> 删除历史镜像[${DockerKey}:${DockerVer}]"
 set +e
 # docker rmi -f ${DockerKey}:${DockerVer}
 set -e

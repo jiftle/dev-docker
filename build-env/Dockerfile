@@ -2,7 +2,7 @@
 FROM ubuntu:18.04
 
 # 维护者
-MAINTAINER jiftle "jiftle@163.com"
+MAINTAINER jiftle "lixugood@126.com"
 
 # ============== 变量定义==============
 # 时区
@@ -61,5 +61,9 @@ RUN apt-get install python3 python3-pip python-pip -y
 
 # ------------- clang -----------------------
 RUN apt-get install -y llvm clang
+ 
+# -------- 清理冗余文件，减少体积 ------------
+RUN rm -rf /var/lib/apt/lists/*
+
 # 设置工作目录
 WORKDIR /
