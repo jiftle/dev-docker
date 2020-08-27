@@ -7,12 +7,12 @@
 # -----------------------------------------------------------------
 set -e
 
+cd ..
 # ------------ 引用脚本 --------------
 . ./conf.conf
 
-cd ..
 
-echo "  |--> 推送镜像[${DockerKey}:${DockerVer}]开始..."
-docker push ${DockerKey}:${DockerVer}
-echo "  |--> 推送镜像[${DockerKey}:${DockerVer}]完成. ^_^😊"
+echo "  |--> 拉取镜像[${DockerKey}:${DockerVer}]开始..."
+docker pull ${DockerKey}:${DockerVer}
+echo "  |--> 拉取镜像[${DockerKey}:${DockerVer}]完成. ^_^😊"
 
