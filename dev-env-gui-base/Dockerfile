@@ -13,15 +13,15 @@ libsecret-1-0 \
 libgtk-3-0 \
 libxss1 \
 libx11-xcb1 \
-language-pack-zh-hans
+language-pack-zh-hans \
+fonts-droid-fallback
 
+# ------------ 处理时区问题 ----------------
 RUN export DEBIAN_FRONTEND=noninteractive \
 && apt install -y \
-tzdata
-
-# RUN dpkg-reconfigure --frontend noninteractive tzdata
-
-RUN echo "Asia/Shanghai" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
+tzdata \
+&& echo "Asia/Shanghai" > /etc/timezone \
+&& dpkg-reconfigure -f noninteractive tzdata
 
 # ---------- 基础环境变量 ----------
 # RUN cat ${INST_DIR}/bash-env.rc >> /etc/bash.bashrc

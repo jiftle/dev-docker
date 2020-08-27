@@ -2,7 +2,7 @@
 FROM jiftle/build-env:0.1
 
 # 维护者
-MAINTAINER jiftle "jiftle@163.com"
+MAINTAINER jiftle "lixugood@126.com"
 
 # ============== 变量定义==============
 ARG INST_DIR="/instdir"
@@ -19,7 +19,7 @@ RUN tar -C /usr/local -xf ${INST_DIR}/node-v14.1.0-linux-x64.tar.xz \
  && cat ${INST_DIR}/node-env.rc >> /etc/my.bashrc
 
 # ---------- 自定义脚本加入，系统环境变量----------
-RUN echo ". /etc/my.bashrc" > /etc/bash.bashrc
+RUN echo ". /etc/my.bashrc" >> /etc/bash.bashrc
 
 # --------- 清理 -------------
 RUN rm -rf ${INST_DIR}

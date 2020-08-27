@@ -1,4 +1,6 @@
 
+export MYHOME="/home/john"
+
 # ------------- 设置Golang环境变量 ------------
 export GOROOT="/usr/local/go"
 export GOPATH="$MYHOME/workspace/gowork"
@@ -8,5 +10,6 @@ export PATH="$PATH:$GOROOT/bin:$GOBIN"
 # Enable the go modules feature
 export GO111MODULE=on
 # Set the GOPROXY environment variable
-# export GOPROXY=https://goproxy.io
-export GOPROXY=https://mirrors.aliyun.com/goproxy/
+export GOPROXY=https://goproxy.io
+# export GOPROXY=https://mirrors.aliyun.com/goproxy/
+
