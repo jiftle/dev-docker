@@ -16,6 +16,7 @@ cd ..
 # docker exec --user john --workdir /home/john -it ${DockerKey} zsh
 docker exec \
 -w /home/john \
+-u john \
 -it \
 ${ContainerName} \
 bash
