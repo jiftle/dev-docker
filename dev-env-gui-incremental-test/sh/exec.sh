@@ -19,4 +19,4 @@ docker exec \
 -u john \
 -it \
 ${ContainerName} \
-bash
+zsh
