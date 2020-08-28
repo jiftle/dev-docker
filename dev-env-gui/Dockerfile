@@ -10,36 +10,54 @@ ARG INST_DIR="/instdir"
 # ------------- 文件拷贝 -------------
 COPY files ${INST_DIR}
 
-# ---------- 基础环境变量 ----------
-# RUN cat ${INST_DIR}/bash-env.rc >> /etc/bash.bashrc
-
 # ------------- 字体 ---------------------
 RUN cd ${INST_DIR}/fonts && bash install.sh
 
-# 处理配置文件
-# RUN cp -ar ${INST_DIR}/root/. /root/
-
 # ------------- 安装vscode ---------------------
-RUN dpkg -i ${INST_DIR}/code_1.48.2-1598353430_amd64.deb \
+RUN dpkg -i ${INST_DIR}/app/code_1.48.2-1598353430_amd64.deb \
 && \
-echo 'alias vscode="code --user-data-dir /root/.vscode"' >> /etc/my.bashrc
+echo 'alias vscode="code --user-data-dir /root/.vscode"' >> /etc/my.bashrc \
+&& \
+echo '' >> /etc/my.bashrc
 
 
 # ------------- 安装vim ---------------------
-RUN cd ${INST_DIR}/vim && make install \
+RUN cd ${INST_DIR}/app/vim && make install \
 && \
 rm -rf /root/.vim \
 && \
-cp -r ${INST_DIR}/conf-dir/.vim /root/
+cp -r ${INST_DIR}/conf/vim /root/ \
+&& \
+mv /root/vim /root/.vim
 
-# 清理临时文件
+
+# ---------- 环境变量处理 ----------
+RUN \
+echo 'alias vi=vim' >> /etc/my.bashrc \
+&& \
+echo 'export LC_ALL="zh_CN.UTF-8"' >> /etc/my.bashrc \
+&& \
+echo '' >> /etc/my.bashrc \
+&& \
+echo 'export TERM="xterm-256color"' >> /etc/my.bashrc \
+&& \
+echo '' >> /etc/my.bashrc
+
+# --------------- zsh 终端美化 ------------------
+RUN apt update && \
+apt install -y \
+zsh
+
+RUN \
+cp -r $INST_DIR/zsh/oh-my-zsh /root/.oh-my-zsh \
+&& \
+cp $INST_DIR/zsh/zshrc /root/.zshrc \
+&& \
+cp $INST_DIR/zsh/p10k.zsh /root/.p10k.zsh
+
+
+# *************************** 清理临时文件 **************************
 RUN rm -rf ${INST_DIR}
-
-# --------------- 语言设置为中文
-# ENV LANG C.UTF-8
-# # 设置时区
-# RUN echo 'Asia/Shanghai' >/etc/timezone
-
 
 # --------- 创建用户
 # RUN addgroup -g 1000 john && adduser -u 1000 -D -h /home/john -G john john
