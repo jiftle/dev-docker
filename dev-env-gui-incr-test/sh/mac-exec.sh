@@ -19,4 +19,10 @@ IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
 # docker exec --user john --workdir /home/john -it ${DockerKey} zsh
 echo "  |--> 当前主机IP: $IP"
 xhost + $IP
-docker exec -it -e DISPLAY=$IP:0 ${ContainerName} bash
+docker exec \
+-it \
+-w /home/john \
+-u john \
+-e DISPLAY=$IP:0 \
+${ContainerName} \
+zsh

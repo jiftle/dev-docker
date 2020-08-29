@@ -27,6 +27,13 @@ echo "john:.ee" | chpasswd \
 && \
 usermod -aG sudo john
 
+# --------------- 按照ruby 和 colorls -------------
+RUN \
+apt install -y \
+ruby-full \
+&& \
+gem install colorls
+
 # 清理临时文件
 # RUN rm -rf ${INST_DIR}
 
