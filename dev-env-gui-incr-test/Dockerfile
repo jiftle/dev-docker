@@ -35,7 +35,7 @@ ruby-full \
 gem install colorls
 
 # 清理临时文件
-# RUN rm -rf ${INST_DIR}
+RUN rm -rf ${INST_DIR}
 
 # --------- 创建用户
 # RUN addgroup -g 1000 john && adduser -u 1000 -D -h /home/john -G john john
