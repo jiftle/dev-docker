@@ -13,7 +13,11 @@ ARG INST_DIR="/instdir"
 # ------------------- 安装软件 -----------------
 RUN apt install -y \
 sudo \
-ctags
+ctags \
+iputils-ping \
+ack-grep \
+iproute2 iproute2-doc \
+openssh-server
 
 # ------------------- 账号 ---------------------
 RUN \
@@ -34,11 +38,22 @@ ruby-full \
 && \
 gem install colorls
 
+# ------------ ssh远程访问，启用vscode远程调试 ----------------
+# RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
+# && \
+# sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd \
+# && \
+# echo "export VISIBLE=now" >> /etc/profile
+
 # 清理临时文件
-RUN rm -rf ${INST_DIR}
+# RUN rm -rf ${INST_DIR}
+
+# ---------- apt 清理 --------------
+RUN apt clean \
+&& \
+rm -rf /var/lib/apt/lists/*
 
 # --------- 创建用户
-# RUN addgroup -g 1000 john && adduser -u 1000 -D -h /home/john -G john john
 USER john
 
 # 设置工作目录
