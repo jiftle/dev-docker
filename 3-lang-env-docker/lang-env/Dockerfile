@@ -10,6 +10,11 @@ USER root
 ARG INST_DIR="/instdir"
 ARG GOLANG_TAR="go1.14.7.linux-amd64.tar.gz"
 
+# ------------------------- 安装软件 -------------
+RUN apt update && apt install -y \
+tmux
+
+# ------------ 复制文件到 ----------------
 COPY files ${INST_DIR}
 
 # ----------- go -----------------

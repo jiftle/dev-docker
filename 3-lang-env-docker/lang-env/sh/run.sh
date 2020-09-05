@@ -13,6 +13,8 @@ cd ..
 # --------------- 定义变量 ------------------
 # GitPath="${HOME}/wrk-git"
 # GitPath="/work/git"
+User="dev"
+
 echo "------------- 运行[${DockerKey}:${DockerVer}]镜像的容器 ------------"
 
 echo "  |--> 删除Docker实例，[${DockerName}] ..."
@@ -23,8 +25,12 @@ echo "  |--> 开始启动Docker实例，[${DockerName}] ..."
 # ----------- 运行容器 ------------
 docker run -itd \
 --name="${ContainerName}" \
--v ${HOME}/.ssh:/root/.ssh \
 -h "${ContainerName}" \
+`# 注释请忽略，----------- 工作目录映射 -------------` \
+-v ${HOME}/.ssh:/home/$User/.ssh `# .ssh密钥` \
+-v ${HOME}/.wakatime.cfg:/home/$User/.wakatime.cfg `# .ssh密钥` \
+-v ${HOME}:/home/john `# 默认工作目录，映射` \
+-v ${gitpath}:/home/john/git `# git仓库目录` \
 --restart=always \
 ${DockerKey}:${DockerVer}
 
@@ -34,7 +40,7 @@ ${DockerKey}:${DockerVer}
 # `# 注释请忽略，----------- 工作目录映射 -------------` \
 # -w /home/john `# 默认工作目录` \
 # -v ${HOME}:/home/john `# 默认工作目录，映射` \
-# -v ${GitPath}:/home/john/git `# git仓库目录` \
+# -v ${gitpath}:/home/john/git `# git仓库目录` \
 # `# 注释请忽略，----------- 用户密钥 -------------` \
 # -v ${HOME}/.ssh:/root/.ssh `# .ssh密钥` \
 # `# 注释请忽略，----------- 端口映射 -------------` \

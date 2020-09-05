@@ -27,8 +27,6 @@ usermod -aG sudo $USER
 
 
 # ------------ 处理时区问题 ----------------
-RUN apt update
-
 RUN apt update && export DEBIAN_FRONTEND=noninteractive \
 && apt install -y \
 tzdata \
