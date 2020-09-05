@@ -11,14 +11,16 @@ cd ..
 . ./conf.conf
 
 # --------------- 定义变量 ------------------
-# GitPath="${HOME}/wrk-git"
-# GitPath="/work/git"
-User="dev"
+GitPath="/usrlocal/git"
+USER="dev"
 
 echo "------------- 运行[${DockerKey}:${DockerVer}]镜像的容器 ------------"
 
-echo "  |--> 删除Docker实例，[${DockerName}] ..."
-docker rm -f ${DockerKey}
+# echo "  |--> 删除Docker实例，[${DockerName}] ..."
+# docker rm -f ${DockerKey}
+
+echo "---> 设置x11访问控制"
+xhost +
 
 echo "  |--> 开始启动Docker实例，[${DockerName}] ..."
 
@@ -27,31 +29,19 @@ docker run -itd \
 --name="${ContainerName}" \
 -h "${ContainerName}" \
 `# 注释请忽略，----------- 工作目录映射 -------------` \
--v ${HOME}/.ssh:/home/$User/.ssh `# .ssh密钥` \
--v ${HOME}/.wakatime.cfg:/home/$User/.wakatime.cfg `# .ssh密钥` \
+-v ${HOME}/.ssh:/home/$USER/.ssh `# .ssh密钥` \
+-v ${HOME}/.wakatime.cfg:/home/$USER/.wakatime.cfg `# .ssh密钥` \
 -v ${HOME}:/home/john `# 默认工作目录，映射` \
--v ${gitpath}:/home/john/git `# git仓库目录` \
+-v ${GitPath}:/home/john/git `# git仓库目录` \
+`# 注释请忽略，----------- 端口映射 -------------` \
+-p 58001:8001 `# 日志仓库，预览服务` \
+-p 58080:8080 `# web程序调试端口` \
 --restart=always \
-${DockerKey}:${DockerVer}
+--privileged \
+`# -------------- GUI程序设置 ----------------` \
+-v /tmp/.X11-unix:/tmp/.X11-unix \
+${DockerKey}:${DockerVer} \
+/sbin/init
 
-# docker run -itd \
-# `# 注释请忽略，----------- 设置名称 -------------` \
-# --name="devenv-vim" \
-# `# 注释请忽略，----------- 工作目录映射 -------------` \
-# -w /home/john `# 默认工作目录` \
-# -v ${HOME}:/home/john `# 默认工作目录，映射` \
-# -v ${gitpath}:/home/john/git `# git仓库目录` \
-# `# 注释请忽略，----------- 用户密钥 -------------` \
-# -v ${HOME}/.ssh:/root/.ssh `# .ssh密钥` \
-# `# 注释请忽略，----------- 端口映射 -------------` \
-# -p 8001:8001 `# 日志仓库，预览服务` \
-# -p 8080:8080 `# web程序调试端口` \
-# -p 8088:8088 `# web程序调试端口` \
-# `# 注释请忽略，----------- 解决时区问题 -------------` \
-# `# -e TZ="CST"` \
-# -h "devenv-vim" `# 机器名` \
-# --restart=always `# 自启动，容易导致挂载的分区，晚于docker` \
-# `# 镜像名` \
-# jiftle/devenv-vim:latest
 echo "  |--> 启动Docker[${DockerName}]完毕. ^_^😁"
 
