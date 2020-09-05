@@ -30,7 +30,8 @@ docker run -itd \
 -h "${ContainerName}" \
 `# 注释请忽略，----------- 工作目录映射 -------------` \
 -v ${HOME}/.ssh:/home/$USER/.ssh `# .ssh密钥` \
--v ${HOME}/.wakatime.cfg:/home/$USER/.wakatime.cfg `# .ssh密钥` \
+-v ${HOME}/.gitconfig:/home/$USER/.gitconfig `# git配置文件` \
+-v ${HOME}/.wakatime.cfg:/home/$USER/.wakatime.cfg `# wakatime编码时间统计` \
 -v ${HOME}:/home/john `# 默认工作目录，映射` \
 -v ${GitPath}:/home/john/git `# git仓库目录` \
 `# 注释请忽略，----------- 端口映射 -------------` \
@@ -40,6 +41,7 @@ docker run -itd \
 --privileged \
 `# -------------- GUI程序设置 ----------------` \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
+-e DISPLAY=unix$DISPLAY \
 ${DockerKey}:${DockerVer} \
 /sbin/init
 

@@ -21,6 +21,13 @@ echo "  |--> 下载golang语言运行时"
 GOLANG_TAR="go1.14.8.linux-amd64.tar.gz"
 wget -nc -P ./files https://studygolang.com/dl/golang/$GOLANG_TAR
 
+
+echo "  |--> 删除镜像"
+docker rmi -f ${DockerKey}:${DockerVer}
+
 echo "  |--> 构建镜像[${DockerKey}:${DockerVer}]开始..."
 docker build -t ${DockerKey}:${DockerVer} .
 echo "  |--> 构建镜像[${DockerKey}:${DockerVer}]完成. ^_^😊"
+
+echo "-------------- 构建完成，镜像如下 -----------------"
+docker images |grep ${DockerKey}

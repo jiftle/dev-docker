@@ -12,12 +12,11 @@ ARG INST_DIR="/instdir"
 ARG GOLANG_TAR="go1.14.8.linux-amd64.tar.gz"
 
 # ------------------------- 安装软件 -------------
-RUN apt update && apt list --upgradable && apt install -y \
+RUN apt update && apt install -y \
 apt-utils \
-tmux
-
-# ------------------ 下载 -----------------------
-# RUN wget -nc https://studygolang.com/dl/golang/$GOLANG_TAR
+tmux \
+gitk \
+meld
 
 # ------------ 复制文件到 ----------------
 COPY files ${INST_DIR}
@@ -48,12 +47,15 @@ RUN cp -r $INST_DIR/sh /home/$USER/
 # ---------- 自定义脚本加入，系统环境变量----------
 RUN echo ". /etc/my.bashrc" >> /etc/bash.bashrc
 
+# ================ 修改权限 ===================
+RUN chown $USER:$USER /home/$USER
+
 # *********************** 清理冗余文件**********************
 RUN rm -rf ${INST_DIR} \
 && \
 apt clean \
 && \
-rm -rf /var/lib/apt/lists/* .\
+rm -rf /var/lib/apt/lists/* \
 && \
 rm -rf /root/.cache/*
 
