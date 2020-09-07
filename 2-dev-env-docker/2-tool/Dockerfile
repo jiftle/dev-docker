@@ -1,6 +1,5 @@
 # 基础镜像
-FROM jiftle/dev-env-base:1.0.1
-# FROM jiftle/build-env:0.1
+FROM jiftle/dev-env-base:1.0.2
 
 # 维护者
 MAINTAINER jiftle "lixugood@126.com"
@@ -31,8 +30,12 @@ echo 'export TERM="xterm-256color"' >> /etc/my.bashrc \
 && \
 echo '' >> /etc/my.bashrc
 
+# ------------- 安装emacs ---------------------
+RUN cd ${INST_DIR}/app/emacs && make install
 
 # *************************** 清理临时文件 **************************
 RUN rm -rf ${INST_DIR} \
 && \
-rm -rf /var/lib/apt/lists/*
+rm -rf /var/lib/apt/lists/* \
+&& \
+rm -rf /root/.cache/*

@@ -1,5 +1,5 @@
 # 基础镜像
-FROM jiftle/dev-env-env:1.0.1
+FROM jiftle/dev-env-env:1.0.2
 
 # 维护者
 MAINTAINER jiftle "lixugood@126.com"
@@ -42,13 +42,20 @@ cp -r $INST_DIR/conf/pip /home/$USER/.pip
 RUN pip3 install jupyter && pip3 install  notebook
 
 # ================= 运行脚本 ===============
-RUN cp -r $INST_DIR/sh /home/$USER/
+RUN cp -r $INST_DIR/sh /home/$USER/ \
+&& cd /home/$USER/sh .\
+&& chmod +x *.sh
 
 # ---------- 自定义脚本加入，系统环境变量----------
 RUN echo ". /etc/my.bashrc" >> /etc/bash.bashrc
 
-# ================ 修改权限 ===================
-RUN chown $USER:$USER /home/$USER
+# ================ 修改权限，编译过程卡住 ===================
+# RUN chown -R $USER:$USER /home/$USER/
+
+## Emacs 配置
+# ------------ 定义emacsclient的别名，Emacs后台服务模式启动，加快速度 -----------
+RUN echo "alias em='emacs -nw'" >> /etc/my.bashrc
+RUN echo "alias et='emacsclient -t'" >> /etc/my.bashrc
 
 # *********************** 清理冗余文件**********************
 RUN rm -rf ${INST_DIR} \
