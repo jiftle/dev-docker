@@ -49,8 +49,8 @@ RUN cp -r $INST_DIR/sh /home/$USER/ \
 # ---------- 自定义脚本加入，系统环境变量----------
 RUN echo ". /etc/my.bashrc" >> /etc/bash.bashrc
 
-# ================ 修改权限 ===================
-RUN chown -R $USER:$USER /home/$USER
+# ================ 修改权限，编译过程卡住 ===================
+# RUN chown -R $USER:$USER /home/$USER/
 
 ## Emacs 配置
 # ------------ 定义emacsclient的别名，Emacs后台服务模式启动，加快速度 -----------
