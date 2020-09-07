@@ -12,11 +12,16 @@ cd ..
 . ./conf.conf
 
 # ------------------------------------
-# echo "  |--> 删除历史镜像[${DockerKey}:${DockerVer}]"
-# set +e
-# docker rmi -f ${DockerKey}:${DockerVer}
+echo "  |--> 删除历史镜像[${DockerKey}:${DockerVer}]"
+set +e
+docker rmi -f ${DockerKey}:${DockerVer}
+
+sleep 5
 set -e
 
 echo "  |--> 构建镜像[${DockerKey}:${DockerVer}]开始..."
 docker build -t ${DockerKey}:${DockerVer} .
 echo "  |--> 构建镜像[${DockerKey}:${DockerVer}]完成. ^_^😊"
+
+echo "  |--> 构建镜像完成"
+docker images |grep ${DockerKey}

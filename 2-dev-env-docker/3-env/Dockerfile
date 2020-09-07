@@ -1,5 +1,5 @@
 # 基础镜像
-FROM jiftle/dev-env-tool:1.0.1
+FROM jiftle/dev-env-tool:1.0.2
 
 # 维护者
 MAINTAINER jiftle "lixugood@126.com"
@@ -57,9 +57,9 @@ COPY files ${INST_DIR}
 # 
 # ------------- vim配置 ---------------------
 RUN \
-cp -r ${INST_DIR}/conf/vim $HOME_DIR/.vim \
+cp -r ${INST_DIR}/conf/vim-cnf/vim $HOME_DIR/.vim \
 && \
-cp ${INST_DIR}/conf/vimrc $HOME_DIR/.vimrc \
+cp ${INST_DIR}/conf/vim-cnf/vimrc $HOME_DIR/.vimrc \
 && \
 chown -R $USER:$USER $HOME_DIR/.vim \
 && \
@@ -73,13 +73,40 @@ cp $INST_DIR/zsh/zshrc $HOME_DIR/.zshrc \
 && \
 cp $INST_DIR/zsh/p10k.zsh $HOME_DIR/.p10k.zsh
 
+# ------------- emacs配置 ---------------------
+RUN \
+cp ${INST_DIR}/conf/spacemacs-cnf/spacemacs $HOME_DIR/.spacemacs \
+&& \
+cp -r ${INST_DIR}/conf/spacemacs-cnf/emacs.d $HOME_DIR/.emacs.d \
+&& \
+chown $USER:$USER $HOME_DIR/.spacemacs \
+&& \
+chown -R $USER:$USER $HOME_DIR/.emacs.d
+
+
+# ------------- org-mode ---------------------
+RUN \
+cp -r ${INST_DIR}/conf/spacemacs-cnf/emacs-org-gtd-conf $HOME_DIR/emacs-org-gtd-conf \
+&& \
+chown -R $USER:$USER $HOME_DIR/emacs-org-gtd-conf
+
+
+# # ------------- 常用shell脚本 ----------------------
+# RUN \
+# cp -r ${INST_DIR}/sh $HOME_DIR/sh \
+# && \
+# chown -R $USER:$USER $HOME_DIR/sh
+
+
 # ----------- 清理临时文件 -----------
 RUN rm -rf ${INST_DIR}
 
 # ---------- apt 清理 --------------
 RUN apt clean \
 && \
-rm -rf /var/lib/apt/lists/*
+rm -rf /var/lib/apt/lists/* \
+&& \
+rm -rf /root/.cache/*
 
 # --------- 设置用户
 USER dev

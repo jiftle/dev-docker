@@ -20,3 +20,6 @@ cd ..
 echo "  |--> 构建镜像[${DockerKey}:${DockerVer}]开始..."
 docker build -t ${DockerKey}:${DockerVer} .
 echo "  |--> 构建镜像[${DockerKey}:${DockerVer}]完成. ^_^😊"
+
+echo "  |--> 构建完成镜像"
+docker images |grep $DockerKey

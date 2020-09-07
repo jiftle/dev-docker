@@ -14,4 +14,3 @@ jupyter notebook \
 --port=8080 \
 --notebook-dir="/home/john/workspace/jupynotebook" \
 --allow-root
-

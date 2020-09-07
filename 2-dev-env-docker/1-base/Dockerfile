@@ -1,8 +1,5 @@
 # 基础镜像
-FROM jiftle/build-env:1.0.1
-# FROM ubuntu:18.04
-# FROM jiftle/lang-env:0.1
-# FROM dev-env:0.1
+FROM jiftle/build-env:1.0.2
 
 # 维护者
 MAINTAINER jiftle "lixugood@126.com"
@@ -53,4 +50,6 @@ RUN gem install colorls
 # *********************** 清理冗余文件**********************
 RUN rm -rf ${INST_DIR} \
 && \
-rm -rf /var/lib/apt/lists/*
+rm -rf /var/lib/apt/lists/* \
+&& \
+rm -rf /root/.cache/*
